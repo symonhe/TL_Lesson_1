@@ -33,9 +33,9 @@ while play
   puts results[player][computer]
 
   puts "Do you want to play again? y/n?"
-  again = gets.chomp
+  again = gets.chomp.capitalize
 
-  if again == "n"
+  if again == "N"
     play = false
   end
 

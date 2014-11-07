@@ -15,27 +15,31 @@ results = {
     2 => "You and Computer both chose Rock. You Tie!",
     3 => "You chose Rock and Computer chose Scissors. You Win!"
     },
-  "SC" => {
+  "S" => {
     1 => "You chose Scissors and Computer chose Paper. You Win!",
     2 => "You chose Scissors and Computer chose Rock.  You Lose.",
     3 => "You and Computer both chose Scissors. You Tie!"
-    },
+    }
   }
 
 #game play logic
 play = true
+puts "Paper Rock Scissors. Let's Play."
+
 while play
-  puts "Paper Rock Scissors. Let's Play.  Put P, R, or S"
+  puts "____________________________"
+  puts "Choose P, R, or S"
   player = gets.chomp.capitalize
 
   computer = 1 + rand(3)
 
   puts results[player][computer]
+  play = false
 
   puts "Do you want to play again? y/n?"
   again = gets.chomp.capitalize
 
-  if again == "N"
-    play = false
+  if again == "Y"
+    play = true
   end
 end

@@ -5,11 +5,7 @@
 
 #Method to check if number is float
 def is_num_float(num_string)
-    if num_string !~ /^\s*[+-]?((\d+_?)*\d+(\.(\d+_?)*\d+)?|\.(\d+_?)*\d+)(\s*|([eE][+-]?(\d+_?)*\d+)\s*)$/
-      false
-    else
-      true
-    end
+    !(num_string !~ /^\s*[+-]?((\d+_?)*\d+(\.(\d+_?)*\d+)?|\.(\d+_?)*\d+)(\s*|([eE][+-]?(\d+_?)*\d+)\s*)$/)
 end
 
 #check if input is 1-4

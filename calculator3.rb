@@ -10,7 +10,7 @@ end
 
 #check if input is 1-4
 def valid_operation(num)
-  num == 1 || num == 2 || num ==3 || num ==4
+  [1,2,3,4].include?(num)
 end
 
 #get valid 1st # from user

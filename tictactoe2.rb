@@ -17,6 +17,17 @@ def assign_board_value(board, value)
   end
 end
 
+def available_move?(board, move)
+  available = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  board.each {|k,v| available.delete(k) if (v == "X" || v == "O")}
+  available.include?(move)
+end
+
+def add_to_board(board, player, nextmove, symbol)
+  board[nextmove] = symbol
+  player.push(nextmove)
+end
+
 def smart_comp_next_move(user, comp, winning_lines)
   available = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   corners = [1,3,7,9]
@@ -34,7 +45,7 @@ def smart_comp_next_move(user, comp, winning_lines)
     choice = (defense_moves & available).sample
   elsif available.include?(5)
     choice = 5
-  elsif ((corners & available).count == 2) & (comp.count == 1)
+  elsif ((corners & available).count == 2) & (comp.count == 1) & ((comp & corners).count == 0)
     choice = (corners & available).sample[0] + 1 if (corners & available).sample[0] < 8
   elsif !(corners & available).empty?
     (corners & available).each do |x|
@@ -89,21 +100,18 @@ loop do
   begin
     if (board.values.select {|v| v == "-"}.count == 1)
       user_next_move = board.select{|k, v| k if v == '-'}.keys.first
-      user_moves.push(user_next_move)
-      board[user_next_move.to_i] = "X"
+      add_to_board(board, user_moves, user_next_move.to_i, "X")
     else
       begin
         puts "Enter your move from what is available: #{(board.keys - user_moves - comp_moves).join(", ")}"
         user_next_move = gets.chomp
-      end until board.keys.include?(user_next_move.to_i) && num_is_float?(user_next_move)
+      end until available_move?(board, user_next_move.to_i) && num_is_float?(user_next_move)
 
-      board[user_next_move.to_i] = "X"
-      user_moves.push(user_next_move.to_i)
+      add_to_board(board, user_moves, user_next_move.to_i, "X")
       print_board(board)
 
       comp_next_move = smart_comp_next_move(user_moves, comp_moves, winning_lines)
-      board[comp_next_move] = "O"
-      comp_moves.push(comp_next_move)
+      add_to_board(board, comp_moves,comp_next_move, "O")
     end
 
     sleep 0.25

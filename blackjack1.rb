@@ -300,7 +300,6 @@ begin
           bet_tracker[x] = 0
           print_table(user_hands, dealer_hand, bank_chip_count, user_chip_count, bet_tracker, min_bet, max_bet, active_hands, card_values, reveal_hand)
           say "Hand #{x} busted.  You lost the hand."
-          active_hands.delete(x)
           sleep 2.5
         elsif natural_blackjack?(user_hands[x], counts_tracker[x])
           if natural_blackjack?(dealer_hand, dealer_count)
